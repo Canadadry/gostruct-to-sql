@@ -1,11 +1,18 @@
 package ast
 
 const (
-	TypeInt     = "int"
-	TypeChar    = "char"
-	TypeDecimal = "decimal"
-	TypeVarchar = "varchar"
-	TypeTinyint = "tinyint"
+	TypeDecimal   = "decimal"
+	TypeFloat     = "float"
+	TypeDouble    = "double"
+	TypeTinyint   = "tinyint"
+	TypeSmallInt  = "smallint"
+	TypeMediumInt = "mediumint"
+	TypeInt       = "int"
+	TypeBigInt    = "bigint"
+	TypeChar      = "char"
+	TypeVarchar   = "varchar"
+	TypeDate      = "date"
+	TypeDateTime  = "datetime"
 )
 
 type Table struct {
@@ -16,8 +23,7 @@ type Table struct {
 type Field struct {
 	Name          string
 	Type          Type
-	Size1         uint
-	Size2         uint
+	Size          uint
 	Primary       bool
 	AutoIncrement bool
 	Nullable      bool

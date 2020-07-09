@@ -1,4 +1,11 @@
 mode: set
-app/pkg/generator/mysql.go:8.41,13.29 4 1
-app/pkg/generator/mysql.go:17.2,17.56 1 1
-app/pkg/generator/mysql.go:13.29,16.3 2 1
+app/pkg/generator/mysql.go:13.41,18.29 4 1
+app/pkg/generator/mysql.go:26.2,26.56 1 1
+app/pkg/generator/mysql.go:18.29,20.17 2 1
+app/pkg/generator/mysql.go:23.3,24.33 2 1
+app/pkg/generator/mysql.go:20.17,22.4 1 0
+app/pkg/generator/mysql.go:29.49,30.57 1 1
+app/pkg/generator/mysql.go:36.2,36.28 1 1
+app/pkg/generator/mysql.go:30.57,31.18 1 1
+app/pkg/generator/mysql.go:34.3,34.52 1 1
+app/pkg/generator/mysql.go:31.18,33.4 1 1

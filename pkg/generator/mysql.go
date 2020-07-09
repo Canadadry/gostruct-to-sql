@@ -2,17 +2,36 @@ package generator
 
 import (
 	"app/pkg/ast"
+	"fmt"
 	"strings"
+)
+
+var (
+	errSizeOfFieldCannotBeZero = fmt.Errorf("errSizeOfFieldCannotBeZero")
 )
 
 func MySql(t ast.Table) (string, error) {
 	header := "CREATE TABLE " + t.Name + " (\n"
 	footer := ") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
 
-	fields := []string{}
+	fields := make([]string, 0, len(t.Fields))
 	for _, f := range t.Fields {
-		field := "\t" + f.Name + " " + string(f.Type) + ",\n"
+		typeName, err := translateType(f)
+		if err != nil {
+			return "", fmt.Errorf("Cannot translate field %#v : %w", f, err)
+		}
+		field := "\t" + f.Name + " " + typeName + ",\n"
 		fields = append(fields, field)
 	}
 	return header + strings.Join(fields, "") + footer, nil
+}
+
+func translateType(f ast.Field) (string, error) {
+	if f.Type == ast.TypeChar || f.Type == ast.TypeVarchar {
+		if f.Size == 0 {
+			return "", errSizeOfFieldCannotBeZero
+		}
+		return fmt.Sprintf("%s(%d)", f.Type, f.Size), nil
+	}
+	return string(f.Type), nil
 }
