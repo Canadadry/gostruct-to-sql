@@ -1,4 +1,16 @@
 mode: set
+app/pkg/parser/parser.go:14.46,18.35 3 1
+app/pkg/parser/parser.go:22.2,23.22 2 1
+app/pkg/parser/parser.go:27.2,27.39 1 1
+app/pkg/parser/parser.go:40.2,40.15 1 1
+app/pkg/parser/parser.go:18.35,20.3 1 1
+app/pkg/parser/parser.go:23.22,25.3 1 1
+app/pkg/parser/parser.go:27.39,30.17 3 1
+app/pkg/parser/parser.go:33.3,37.5 2 1
+app/pkg/parser/parser.go:30.17,32.4 1 1
+app/pkg/parser/parser.go:43.61,44.11 1 1
+app/pkg/parser/parser.go:48.2,48.66 1 1
+app/pkg/parser/parser.go:45.19,46.26 1 1
 app/pkg/generator/mysql.go:13.41,18.29 4 1
 app/pkg/generator/mysql.go:26.2,26.56 1 1
 app/pkg/generator/mysql.go:18.29,20.17 2 1
