@@ -30,7 +30,7 @@ func Parse(v interface{}) (ast.Table, error) {
 		if err != nil {
 			return t, fmt.Errorf("While parsing field %s : %w", f.Name, err)
 		}
-		fmt.Println(f.Type.Kind())
+		// fmt.Println(f.Type.Kind())
 		t.Fields = append(t.Fields, ast.Field{
 			Name: f.Name,
 			Type: sqlType,
