@@ -9,6 +9,11 @@ github.com/canadadry/gostruct-to-sql/pkg/generator/mysql.go:36.2,36.29 1 1
 github.com/canadadry/gostruct-to-sql/pkg/generator/mysql.go:30.57,31.18 1 1
 github.com/canadadry/gostruct-to-sql/pkg/generator/mysql.go:34.3,34.61 1 1
 github.com/canadadry/gostruct-to-sql/pkg/generator/mysql.go:31.18,33.4 1 1
+github.com/canadadry/gostruct-to-sql/pkg/generator/sqlite.go:9.42,14.29 4 1
+github.com/canadadry/gostruct-to-sql/pkg/generator/sqlite.go:22.2,22.56 1 1
+github.com/canadadry/gostruct-to-sql/pkg/generator/sqlite.go:14.29,16.17 2 1
+github.com/canadadry/gostruct-to-sql/pkg/generator/sqlite.go:19.3,20.33 2 1
+github.com/canadadry/gostruct-to-sql/pkg/generator/sqlite.go:16.17,18.4 1 0
 github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:14.46,18.35 3 1
 github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:22.2,23.22 2 1
 github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:27.2,27.39 1 1

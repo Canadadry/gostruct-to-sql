@@ -9,6 +9,7 @@ import (
 
 type Generator struct {
 	types []interface{}
+	mode  string
 }
 
 func (g *Generator) RegisterType(t interface{}) {
@@ -27,7 +28,15 @@ func (g *Generator) Generate() (string, error) {
 		if err != nil {
 			return "", err
 		}
-		query, err := generator.MySql(ast)
+		var query string
+		switch g.mode {
+		case "mysql":
+			query, err = generator.MySql(ast)
+		case "sqlite":
+			query, err = generator.Sqlite(ast)
+		default:
+			query, err = generator.Sqlite(ast)
+		}
 		if err != nil {
 			return "", err
 		}

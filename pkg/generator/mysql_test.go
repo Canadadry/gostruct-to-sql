@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestGenerator(t *testing.T) {
+func TestGeneratorMysql(t *testing.T) {
 
 	tests := []struct {
 		input    ast.Table
