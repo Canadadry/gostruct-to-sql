@@ -45,5 +45,5 @@ func convertGoTypeToMysql(t reflect.Kind) (ast.Type, error) {
 	case reflect.Int:
 		return ast.TypeInt, nil
 	}
-	return ast.TypeInt, fmt.Errorf("%w : got %v", ErrUnknownType, t)
+	return ast.Type{}, fmt.Errorf("%w : got %v", ErrUnknownType, t)
 }
