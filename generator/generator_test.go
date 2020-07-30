@@ -5,6 +5,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"os"
 	"testing"
+	"time"
 )
 
 const (
@@ -37,7 +38,10 @@ func TestIsUpToDate(t *testing.T) {
 	defer os.Remove(dbUrl)
 
 	g := Generator{}
-	err = g.RegisterType(struct{ test int }{})
+	err = g.RegisterType(struct {
+		test     int
+		creation time.Time
+	}{})
 	if err != nil {
 		t.Fatalf("Cannot generate database schema : %v", err)
 	}

@@ -26,7 +26,7 @@ func Parse(v interface{}) (ast.Table, error) {
 
 	for i := 0; i < tOfv.NumField(); i++ {
 		f := tOfv.Field(i)
-		sqlType, err := convertGoTypeToMysql(f.Type.Kind())
+		sqlType, err := convertGoTypeToSqlType(f.Type)
 		if err != nil {
 			return t, fmt.Errorf("While parsing field %s : %w", f.Name, err)
 		}
@@ -40,9 +40,14 @@ func Parse(v interface{}) (ast.Table, error) {
 	return t, nil
 }
 
-func convertGoTypeToMysql(t reflect.Kind) (ast.Type, error) {
-	switch t {
+func convertGoTypeToSqlType(t reflect.Type) (ast.Type, error) {
+	switch t.Kind() {
 	case reflect.Int:
+		return ast.TypeInt, nil
+	case reflect.Struct:
+		if t.PkgPath() == "time" && t.Name() == "Time" {
+			return ast.TypeDateTime, nil
+		}
 		return ast.TypeInt, nil
 	}
 	return ast.Type{}, fmt.Errorf("%w : got %v", ErrUnknownType, t)

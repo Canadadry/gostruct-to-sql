@@ -48,11 +48,16 @@ func TestGeneratorMysql(t *testing.T) {
 						Name: "id2",
 						Type: ast.TypeInt,
 					},
+					{
+						Name: "creation",
+						Type: ast.TypeDateTime,
+					},
 				},
 			},
 			expected: `CREATE TABLE test4 (
 	id1 int,
-	id2 int
+	id2 int,
+	creation datetime
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
 		},
 	}

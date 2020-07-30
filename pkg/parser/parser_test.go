@@ -5,6 +5,7 @@ import (
 	"github.com/canadadry/gostruct-to-sql/pkg/ast"
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestParser(t *testing.T) {
@@ -30,14 +31,16 @@ func TestParser(t *testing.T) {
 		},
 		{
 			input: struct {
-				name int
-				desc int
+				name     int
+				desc     int
+				creation time.Time
 			}{},
 			expected: ast.Table{
 				Name: "anonym_1",
 				Fields: []ast.Field{
 					{Name: "name", Type: ast.TypeInt},
 					{Name: "desc", Type: ast.TypeInt},
+					{Name: "creation", Type: ast.TypeDateTime},
 				},
 			},
 		},
