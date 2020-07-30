@@ -6,8 +6,11 @@ import (
 
 func TestGenerate(t *testing.T) {
 	g := Generator{}
-	g.RegisterType(struct{ test int }{})
-	_, err := g.Generate()
+	err := g.RegisterType(struct{ test int }{})
+	if err != nil {
+		t.Fatalf("Failed : %v", err)
+	}
+	_, err = g.Generate()
 	if err != nil {
 		t.Fatalf("Failed : %v", err)
 	}
