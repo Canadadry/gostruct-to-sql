@@ -1,8 +1,8 @@
 package generator
 
 import (
-	"app/pkg/ast"
 	"errors"
+	"github.com/canadadry/gostruct-to-sql/pkg/ast"
 	"testing"
 )
 

@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"app/pkg/ast"
 	"errors"
+	"github.com/canadadry/gostruct-to-sql/pkg/ast"
 	"reflect"
 	"testing"
 )

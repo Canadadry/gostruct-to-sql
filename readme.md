@@ -13,6 +13,7 @@ package db
 
 import (
 	"github.com/canadadry/gostruct-to-sql/generator"
+	"database/sql"
 	"model"
 	"fmt"
 )
@@ -25,7 +26,7 @@ func Connect(url string) (*sql.DB, error) {
 	g := generator.Generator{}
 	g.RegisterType(model.Type1{})
 	g.RegisterType(model.Type2{})
-	ok = g.isUpToDate(db)
+	ok = g.IsUpToDate(db)
 	if ok {
 		return db, nil
 	}
