@@ -32,7 +32,7 @@ func TestGeneratorSqlite(t *testing.T) {
 				},
 			},
 			expected: `CREATE TABLE test3 (
-	id int,
+	id int
 );`,
 		},
 		{
@@ -51,7 +51,7 @@ func TestGeneratorSqlite(t *testing.T) {
 			},
 			expected: `CREATE TABLE test4 (
 	id1 int,
-	id2 int,
+	id2 int
 );`,
 		},
 	}

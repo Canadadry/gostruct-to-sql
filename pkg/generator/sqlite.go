@@ -16,8 +16,12 @@ func Sqlite(t ast.Table) (string, error) {
 		if err != nil {
 			return "", fmt.Errorf("Cannot translate field %#v : %w", f, err)
 		}
-		field := "\t" + f.Name + " " + typeName + ",\n"
+		field := "\t" + f.Name + " " + typeName
 		fields = append(fields, field)
 	}
-	return header + strings.Join(fields, "") + footer, nil
+	content := strings.Join(fields, ",\n")
+	if len(content) > 0 {
+		content += "\n"
+	}
+	return header + content + footer, nil
 }
