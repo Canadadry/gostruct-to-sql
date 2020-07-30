@@ -44,6 +44,7 @@ func Connect(protocol string, url string) (*sql.DB, error) {
 
 ```
 
+Supported protocols are : `mysql` and `sqlite3`
 
 ## Current Feature
 
