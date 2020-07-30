@@ -26,15 +26,23 @@ func (g *Generator) RegisterType(t interface{}) error {
 	return nil
 }
 
-const isUpToDateQuery = "select * from ? limit = 0;"
+const tableExistQuery = `select * from %s;`
+
+func doesTableExist(db *sql.DB, name string) error {
+	rows, err := db.Query(fmt.Sprintf(tableExistQuery, name))
+	if err != nil {
+		return fmt.Errorf("query failed :%w", err)
+	}
+	if err := rows.Close(); err != nil {
+		return fmt.Errorf("row close failed :%w", err)
+	}
+	return nil
+}
 
 func (g *Generator) IsUpToDate(db *sql.DB) bool {
-
 	for k, _ := range g.types {
-		_, table_check := db.Query(isUpToDateQuery, k)
-
-		if table_check != nil {
-			fmt.Println("missing table : ", k)
+		err := doesTableExist(db, k)
+		if err != nil {
 			return false
 		}
 	}
