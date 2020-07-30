@@ -12,7 +12,7 @@ Import the lib and use it to initialize your DataBase
 package db
 
 import (
-	"github.com/everycheck/gostruct-to-sql/generator"
+	"github.com/canadadry/gostruct-to-sql/generator"
 	"model"
 	"fmt"
 )
