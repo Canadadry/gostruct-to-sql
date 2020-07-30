@@ -58,7 +58,27 @@ func Connect(url string) (*sql.DB, error) {
  - Add foreign key by referencing another type (one to one)/(many to one)
  - Add foreign key by referencing another type as an array (one to many)/(many to many)
  - Add option for auto increment
+ - Add option on engine and more ...
 
+## Example 
+
+
+The following struct 
+
+```go
+type Demo struct {
+	Name        int
+	description int
+}
+```
+
+will generate this sql code : 
+```sql
+CREATE TABLE Demo (
+	Name int,
+	description int,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
 
 
 
