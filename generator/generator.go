@@ -2,6 +2,7 @@ package generator
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/canadadry/gostruct-to-sql/pkg/ast"
 	"github.com/canadadry/gostruct-to-sql/pkg/generator"
 	"github.com/canadadry/gostruct-to-sql/pkg/parser"
@@ -25,8 +26,19 @@ func (g *Generator) RegisterType(t interface{}) error {
 	return nil
 }
 
-func (g *Generator) IsUpToDate(*sql.DB) bool {
-	return false
+const isUpToDateQuery = "select * from ? limit = 0;"
+
+func (g *Generator) IsUpToDate(db *sql.DB) bool {
+
+	for k, _ := range g.types {
+		_, table_check := db.Query(isUpToDateQuery, k)
+
+		if table_check != nil {
+			fmt.Println("missing table : ", k)
+			return false
+		}
+	}
+	return true
 }
 
 func (g *Generator) Generate() (string, error) {
