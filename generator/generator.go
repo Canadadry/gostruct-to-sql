@@ -8,8 +8,8 @@ import (
 )
 
 type Generator struct {
-	types []interface{}
-	mode  string
+	types    []interface{}
+	Protocol string
 }
 
 func (g *Generator) RegisterType(t interface{}) {
@@ -29,10 +29,10 @@ func (g *Generator) Generate() (string, error) {
 			return "", err
 		}
 		var query string
-		switch g.mode {
+		switch g.Protocol {
 		case "mysql":
 			query, err = generator.MySql(ast)
-		case "sqlite":
+		case "sqlite3":
 			query, err = generator.Sqlite(ast)
 		default:
 			query, err = generator.Sqlite(ast)

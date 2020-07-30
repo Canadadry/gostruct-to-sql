@@ -12,36 +12,36 @@ Import the lib and use it to initialize your DataBase
 package db
 
 import (
-	"github.com/canadadry/gostruct-to-sql/generator"
+	"app/pkg/model"
 	"database/sql"
-	"model"
 	"fmt"
+	"github.com/canadadry/gostruct-to-sql/generator"
 )
 
-func Connect(url string) (*sql.DB, error) {
+func Connect(protocol string, url string) (*sql.DB, error) {
 	db, err := sql.Open(protocol, url)
 	if err != nil {
-		return nil, fmt.Errorf("Can open conn to %s : %w",url,err)
+		return nil, fmt.Errorf("Can open conn to %s : %w", url, err)
 	}
-	g := generator.Generator{}
-	g.RegisterType(model.Type1{})
-	g.RegisterType(model.Type2{})
-	ok = g.IsUpToDate(db)
+	g := generator.Generator{mode:protocol}
+	g.RegisterType(model.Stat{})
+	ok := g.IsUpToDate(db)
 	if ok {
 		return db, nil
 	}
 
-	query, err := g.Generate()	
+	query, err := g.Generate()
 	if err != nil {
-		return nil, fmt.Errorf("Cannot generate database schema : %w",err)
+		return nil, fmt.Errorf("Cannot generate database schema : %w", err)
 	}
-	_, err := db.Exec(query)
+	_, err = db.Exec(query)
 	if err != nil {
-		return nil, fmt.Errorf("Error while creating schema : %w",err)
+		return nil, fmt.Errorf("Error while creating schema : %w", err)
 	}
 
-	return db,nil
+	return db, nil
 }
+
 ```
 
 
