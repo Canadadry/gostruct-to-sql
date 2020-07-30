@@ -24,7 +24,7 @@ func TestParser(t *testing.T) {
 			expected: ast.Table{
 				Name: "anonym_1",
 				Fields: []ast.Field{
-					{Name: "name", Type: "int"},
+					{Name: "name", Type: ast.TypeInt},
 				},
 			},
 		},
@@ -36,8 +36,8 @@ func TestParser(t *testing.T) {
 			expected: ast.Table{
 				Name: "anonym_1",
 				Fields: []ast.Field{
-					{Name: "name", Type: "int"},
-					{Name: "desc", Type: "int"},
+					{Name: "name", Type: ast.TypeInt},
+					{Name: "desc", Type: ast.TypeInt},
 				},
 			},
 		},

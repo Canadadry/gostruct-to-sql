@@ -31,7 +31,7 @@ func translateType(f ast.Field) (string, error) {
 		if f.Size == 0 {
 			return "", errSizeOfFieldCannotBeZero
 		}
-		return fmt.Sprintf("%s(%d)", f.Type, f.Size), nil
+		return fmt.Sprintf("%s(%d)", f.Type.String(), f.Size), nil
 	}
-	return string(f.Type), nil
+	return f.Type.String(), nil
 }

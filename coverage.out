@@ -1,4 +1,14 @@
 mode: set
+app/pkg/generator/mysql.go:13.41,18.29 4 1
+app/pkg/generator/mysql.go:26.2,26.56 1 1
+app/pkg/generator/mysql.go:18.29,20.17 2 1
+app/pkg/generator/mysql.go:23.3,24.33 2 1
+app/pkg/generator/mysql.go:20.17,22.4 1 0
+app/pkg/generator/mysql.go:29.49,30.57 1 1
+app/pkg/generator/mysql.go:36.2,36.29 1 1
+app/pkg/generator/mysql.go:30.57,31.18 1 1
+app/pkg/generator/mysql.go:34.3,34.61 1 1
+app/pkg/generator/mysql.go:31.18,33.4 1 1
 app/pkg/parser/parser.go:14.46,18.35 3 1
 app/pkg/parser/parser.go:22.2,23.22 2 1
 app/pkg/parser/parser.go:27.2,27.39 1 1
@@ -11,13 +21,3 @@ app/pkg/parser/parser.go:30.17,32.4 1 1
 app/pkg/parser/parser.go:43.61,44.11 1 1
 app/pkg/parser/parser.go:48.2,48.66 1 1
 app/pkg/parser/parser.go:45.19,46.26 1 1
-app/pkg/generator/mysql.go:13.41,18.29 4 1
-app/pkg/generator/mysql.go:26.2,26.56 1 1
-app/pkg/generator/mysql.go:18.29,20.17 2 1
-app/pkg/generator/mysql.go:23.3,24.33 2 1
-app/pkg/generator/mysql.go:20.17,22.4 1 0
-app/pkg/generator/mysql.go:29.49,30.57 1 1
-app/pkg/generator/mysql.go:36.2,36.28 1 1
-app/pkg/generator/mysql.go:30.57,31.18 1 1
-app/pkg/generator/mysql.go:34.3,34.52 1 1
-app/pkg/generator/mysql.go:31.18,33.4 1 1

@@ -1,18 +1,24 @@
 package ast
 
-const (
-	TypeDecimal   = "decimal"
-	TypeFloat     = "float"
-	TypeDouble    = "double"
-	TypeTinyint   = "tinyint"
-	TypeSmallInt  = "smallint"
-	TypeMediumInt = "mediumint"
-	TypeInt       = "int"
-	TypeBigInt    = "bigint"
-	TypeChar      = "char"
-	TypeVarchar   = "varchar"
-	TypeDate      = "date"
-	TypeDateTime  = "datetime"
+type Type struct {
+	value string
+}
+
+func (t Type) String() string { return t.value }
+
+var (
+	TypeDecimal   = Type{"decimal"}
+	TypeFloat     = Type{"float"}
+	TypeDouble    = Type{"double"}
+	TypeTinyint   = Type{"tinyint"}
+	TypeSmallInt  = Type{"smallint"}
+	TypeMediumInt = Type{"mediumint"}
+	TypeInt       = Type{"int"}
+	TypeBigInt    = Type{"bigint"}
+	TypeChar      = Type{"char"}
+	TypeVarchar   = Type{"varchar"}
+	TypeDate      = Type{"date"}
+	TypeDateTime  = Type{"datetime"}
 )
 
 type Table struct {
@@ -28,5 +34,3 @@ type Field struct {
 	AutoIncrement bool
 	Nullable      bool
 }
-
-type Type string
