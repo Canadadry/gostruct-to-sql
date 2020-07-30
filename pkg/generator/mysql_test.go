@@ -33,7 +33,7 @@ func TestGeneratorMysql(t *testing.T) {
 				},
 			},
 			expected: `CREATE TABLE test3 (
-	id int,
+	id int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
 		},
 		{
@@ -52,7 +52,7 @@ func TestGeneratorMysql(t *testing.T) {
 			},
 			expected: `CREATE TABLE test4 (
 	id1 int,
-	id2 int,
+	id2 int
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
 		},
 	}
