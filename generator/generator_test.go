@@ -39,9 +39,11 @@ func TestIsUpToDate(t *testing.T) {
 
 	g := Generator{}
 	err = g.RegisterType(struct {
-		test     int
-		creation time.Time
-		name     string
+		test        int
+		creation    time.Time
+		name        string
+		uuid        string `type:"char" size:"36"`
+		description string `type:"varchar" size:"500"`
 	}{})
 	if err != nil {
 		t.Fatalf("Cannot generate database schema : %v", err)

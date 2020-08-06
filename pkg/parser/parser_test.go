@@ -68,6 +68,28 @@ func TestParser(t *testing.T) {
 				},
 			},
 		},
+		{
+			input: struct {
+				name string `type:"varchar" size:"36"`
+			}{},
+			expected: ast.Table{
+				Name: "anonym_1",
+				Fields: []ast.Field{
+					{Name: "name", Type: ast.TypeVarchar, Size: 36},
+				},
+			},
+		},
+		{
+			input: struct {
+				name string `type:"char" size:"36"`
+			}{},
+			expected: ast.Table{
+				Name: "anonym_1",
+				Fields: []ast.Field{
+					{Name: "name", Type: ast.TypeChar, Size: 36},
+				},
+			},
+		},
 	}
 
 	for i, tt := range tests {
@@ -97,6 +119,18 @@ func TestParserError(t *testing.T) {
 				name bool
 			}{},
 			expected: ErrUnknownType,
+		},
+		{
+			input: struct {
+				name string `type:"varchar"`
+			}{},
+			expected: ErrTypeRequiredASize,
+		},
+		{
+			input: struct {
+				name string `type:"char"`
+			}{},
+			expected: ErrTypeRequiredASize,
 		},
 	}
 

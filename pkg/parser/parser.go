@@ -4,11 +4,18 @@ import (
 	"fmt"
 	"github.com/canadadry/gostruct-to-sql/pkg/ast"
 	"reflect"
+	"strconv"
 )
 
 var (
-	ErrNotAStruct  = fmt.Errorf("Can only parse struct type")
-	ErrUnknownType = fmt.Errorf("Cannot convert unknown go type")
+	ErrNotAStruct        = fmt.Errorf("Can only parse struct type")
+	ErrUnknownType       = fmt.Errorf("Cannot convert unknown go type")
+	ErrTypeRequiredASize = fmt.Errorf("This type require a size annotation")
+)
+
+const (
+	tagType = "type"
+	tagSize = "size"
 )
 
 func Parse(v interface{}) (ast.Table, error) {
@@ -26,7 +33,8 @@ func Parse(v interface{}) (ast.Table, error) {
 
 	for i := 0; i < tOfv.NumField(); i++ {
 		f := tOfv.Field(i)
-		sqlType, err := convertGoTypeToSqlType(f.Type)
+		tags := tOfv.Field(i).Tag
+		sqlType, sqlSize, err := convertGoTypeToSqlType(f.Type, tags)
 		if err != nil {
 			return t, fmt.Errorf("While parsing field %s : %w", f.Name, err)
 		}
@@ -34,23 +42,57 @@ func Parse(v interface{}) (ast.Table, error) {
 		t.Fields = append(t.Fields, ast.Field{
 			Name: f.Name,
 			Type: sqlType,
+			Size: sqlSize,
 		})
 	}
 
 	return t, nil
 }
 
-func convertGoTypeToSqlType(t reflect.Type) (ast.Type, error) {
+func convertGoTypeToSqlType(t reflect.Type, tags reflect.StructTag) (ast.Type, uint, error) {
 	switch t.Kind() {
 	case reflect.Int:
-		return ast.TypeInt, nil
+		return ast.TypeInt, 0, nil
 	case reflect.String:
-		return ast.TypeText, nil
+		tt, _ := tags.Lookup(tagType)
+		switch tt {
+		case "varchar":
+			size, err := readSizeOf(tags)
+			if err != nil {
+				return ast.TypeVarchar, 0, fmt.Errorf("Cannot find size of %v : %w", t, err)
+			}
+			return ast.TypeVarchar, size, nil
+		case "char":
+			size, err := readSizeOf(tags)
+			if err != nil {
+				return ast.TypeChar, 0, fmt.Errorf("Cannot find size of %v : %w", t, err)
+			}
+			return ast.TypeChar, size, nil
+		}
+
+		return ast.TypeText, 0, nil
 	case reflect.Struct:
 		if t.PkgPath() == "time" && t.Name() == "Time" {
-			return ast.TypeDateTime, nil
+			return ast.TypeDateTime, 0, nil
 		}
-		return ast.TypeInt, nil
+		return ast.TypeInt, 0, nil
 	}
-	return ast.Type{}, fmt.Errorf("%w : got %v", ErrUnknownType, t)
+	return ast.Type{}, 0, fmt.Errorf("%w : got %v", ErrUnknownType, t)
+}
+
+func readSizeOf(tags reflect.StructTag) (uint, error) {
+
+	ts, ok := tags.Lookup(tagSize)
+	if !ok {
+		return 0, ErrTypeRequiredASize
+	}
+	if len(ts) == 0 {
+		return 0, ErrTypeRequiredASize
+	}
+
+	size, err := strconv.ParseUint(ts, 10, 32)
+	if err != nil {
+		return 0, ErrTypeRequiredASize
+	}
+	return uint(size), nil
 }
