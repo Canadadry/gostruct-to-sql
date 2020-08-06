@@ -50,16 +50,16 @@ Supported protocols are : `mysql` and `sqlite3`
 
  - Can create one table from anonyme struct
  - Can get the real name of a struct
- - Can add field : only supported type is Int as `integer`
+ - Can add field : only supported type is Int as `integer` , `datetime`, string as `text`
 
 ## RoadMap
 
  - Add more type (all defined in the type enum)
  - Add option nullbale if type is a pointer 
+ - Add option for auto increment
  - Allow multi table creation
  - Add foreign key by referencing another type (one to one)/(many to one)
  - Add foreign key by referencing another type as an array (one to many)/(many to many)
- - Add option for auto increment
  - Add option on engine and more ...
 
 ## Example 
@@ -74,7 +74,7 @@ type Demo struct {
 }
 ```
 
-will generate this sql code : 
+will generate this MySQL code : 
 ```sql
 CREATE TABLE Demo (
 	Name int,

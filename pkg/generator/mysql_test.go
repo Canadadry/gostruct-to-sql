@@ -60,6 +60,20 @@ func TestGeneratorMysql(t *testing.T) {
 	creation datetime
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
 		},
+		{
+			input: ast.Table{
+				Name: "test5",
+				Fields: []ast.Field{
+					{
+						Name: "name",
+						Type: ast.TypeText,
+					},
+				},
+			},
+			expected: `CREATE TABLE test5 (
+	name text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
+		},
 	}
 
 	for i, tt := range tests {

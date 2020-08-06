@@ -30,7 +30,7 @@ func Parse(v interface{}) (ast.Table, error) {
 		if err != nil {
 			return t, fmt.Errorf("While parsing field %s : %w", f.Name, err)
 		}
-		// fmt.Println(f.Type.Kind())
+
 		t.Fields = append(t.Fields, ast.Field{
 			Name: f.Name,
 			Type: sqlType,
@@ -44,6 +44,8 @@ func convertGoTypeToSqlType(t reflect.Type) (ast.Type, error) {
 	switch t.Kind() {
 	case reflect.Int:
 		return ast.TypeInt, nil
+	case reflect.String:
+		return ast.TypeText, nil
 	case reflect.Struct:
 		if t.PkgPath() == "time" && t.Name() == "Time" {
 			return ast.TypeDateTime, nil

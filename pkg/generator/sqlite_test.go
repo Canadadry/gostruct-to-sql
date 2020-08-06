@@ -59,6 +59,20 @@ func TestGeneratorSqlite(t *testing.T) {
 	creation datetime
 );`,
 		},
+		{
+			input: ast.Table{
+				Name: "test5",
+				Fields: []ast.Field{
+					{
+						Name: "name",
+						Type: ast.TypeText,
+					},
+				},
+			},
+			expected: `CREATE TABLE test5 (
+	name text
+);`,
+		},
 	}
 
 	for i, tt := range tests {

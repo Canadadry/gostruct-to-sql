@@ -8,6 +8,11 @@ import (
 	"time"
 )
 
+type ab_cdef struct {
+	myint  int
+	mytime time.Time
+}
+
 func TestParser(t *testing.T) {
 
 	tests := []struct {
@@ -41,6 +46,25 @@ func TestParser(t *testing.T) {
 					{Name: "name", Type: ast.TypeInt},
 					{Name: "desc", Type: ast.TypeInt},
 					{Name: "creation", Type: ast.TypeDateTime},
+				},
+			},
+		},
+		{
+			input: ab_cdef{},
+			expected: ast.Table{
+				Name: "ab_cdef",
+				Fields: []ast.Field{
+					{Name: "myint", Type: ast.TypeInt},
+					{Name: "mytime", Type: ast.TypeDateTime},
+				},
+			},
+		},
+		{
+			input: struct{ name string }{},
+			expected: ast.Table{
+				Name: "anonym_1",
+				Fields: []ast.Field{
+					{Name: "name", Type: ast.TypeText},
 				},
 			},
 		},

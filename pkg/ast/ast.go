@@ -17,6 +17,7 @@ var (
 	TypeBigInt    = Type{"bigint"}
 	TypeChar      = Type{"char"}
 	TypeVarchar   = Type{"varchar"}
+	TypeText      = Type{"text"}
 	TypeDate      = Type{"date"}
 	TypeDateTime  = Type{"datetime"}
 )

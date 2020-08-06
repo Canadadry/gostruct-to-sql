@@ -29,11 +29,12 @@ github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:27.39,30.17 3 1
 github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:34.3,37.5 1 1
 github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:30.17,32.4 1 1
 github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:43.63,44.18 1 1
-github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:53.2,53.65 1 1
+github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:55.2,55.65 1 1
 github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:45.19,46.26 1 1
-github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:47.22,48.50 1 1
-github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:51.3,51.26 1 0
-github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:48.50,50.4 1 1
+github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:47.22,48.27 1 1
+github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:49.22,50.50 1 1
+github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:53.3,53.26 1 0
+github.com/canadadry/gostruct-to-sql/pkg/parser/parser.go:50.50,52.4 1 1
 github.com/canadadry/gostruct-to-sql/generator/generator.go:17.55,19.16 2 1
 github.com/canadadry/gostruct-to-sql/generator/generator.go:22.2,22.20 1 1
 github.com/canadadry/gostruct-to-sql/generator/generator.go:25.2,26.12 2 1
