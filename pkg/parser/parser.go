@@ -62,6 +62,11 @@ func Parse(v interface{}) (ast.Table, error) {
 func convertGoTypeToSqlType(t reflect.Type, tags reflect.StructTag) (ast.Type, uint, error) {
 	switch t.Kind() {
 	case reflect.Int:
+		tt, _ := tags.Lookup(tagType)
+		switch tt {
+		case "integer":
+			return ast.TypeInteger, 0, nil
+		}
 		return ast.TypeInt, 0, nil
 	case reflect.String:
 		tt, _ := tags.Lookup(tagType)

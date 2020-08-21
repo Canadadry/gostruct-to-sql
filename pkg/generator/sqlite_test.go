@@ -1,6 +1,7 @@
 package generator
 
 import (
+	"errors"
 	"github.com/canadadry/gostruct-to-sql/pkg/ast"
 	"testing"
 )
@@ -75,22 +76,56 @@ func TestGeneratorSqlite(t *testing.T) {
 		},
 		{
 			input: ast.Table{
-				Name: "test6",
+				Name:         "test7",
+				PrimaryField: "name",
 				Fields: []ast.Field{
 					{
 						Name:          "name",
-						Type:          ast.TypeInt,
+						Type:          ast.TypeInteger,
 						AutoIncrement: true,
 					},
 				},
 			},
-			expected: `CREATE TABLE test6 (
-	name int AUTOINCREMENT
+			expected: `CREATE TABLE test7 (
+	name integer PRIMARY KEY AUTOINCREMENT
 );`,
+		},
+	}
+
+	for i, tt := range tests {
+		result, err := Sqlite(tt.input)
+		if err != nil {
+			t.Fatalf("[%d-%s] failed %v", i, tt.input.Name, err)
+		}
+
+		if result != tt.expected {
+			t.Fatalf("[%d] generator return %s\n expected %s", i, result, tt.expected)
+		}
+	}
+}
+
+func TestGeneratorSqliteError(t *testing.T) {
+
+	tests := []struct {
+		input    ast.Table
+		expected error
+	}{
+		{
+			input: ast.Table{
+				Name: "test6",
+				Fields: []ast.Field{
+					{
+						Name:          "name",
+						Type:          ast.TypeInteger,
+						AutoIncrement: true,
+					},
+				},
+			},
+			expected: ErrAutoIncrement,
 		},
 		{
 			input: ast.Table{
-				Name:         "test7",
+				Name:         "test6",
 				PrimaryField: "name",
 				Fields: []ast.Field{
 					{
@@ -100,21 +135,17 @@ func TestGeneratorSqlite(t *testing.T) {
 					},
 				},
 			},
-			expected: `CREATE TABLE test7 (
-	name int AUTOINCREMENT,
-	PRIMARY KEY (name)
-);`,
+			expected: ErrAutoIncrement,
 		},
 	}
 
 	for i, tt := range tests {
-		result, err := Sqlite(tt.input)
-		if err != nil {
-			t.Fatalf("[%d] failed %v", i, err)
+		_, err := Sqlite(tt.input)
+		if err == nil {
+			t.Fatalf("[%d] shoul d have failed", i)
 		}
-
-		if result != tt.expected {
-			t.Fatalf("[%d] generator return %s\n expected %s", i, result, tt.expected)
+		if !errors.Is(err, tt.expected) {
+			t.Fatalf("[%d] return %v\n expected %v", i, err, tt.expected)
 		}
 	}
 }

@@ -39,7 +39,7 @@ func TestIsUpToDate(t *testing.T) {
 
 	g := Generator{}
 	err = g.RegisterType(struct {
-		test        int
+		test        int `type:"integer" primary:"true" autoincrement:"true"`
 		creation    time.Time
 		name        string
 		uuid        string `type:"char" size:"36"`
@@ -56,7 +56,7 @@ func TestIsUpToDate(t *testing.T) {
 
 	_, err = db.Exec(query)
 	if err != nil {
-		t.Fatalf("Error while creating schema : %v", err)
+		t.Fatalf("Error while creating schema \n%s\n%v", query, err)
 	}
 
 	result := g.IsUpToDate(db)

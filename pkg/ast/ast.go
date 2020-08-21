@@ -14,6 +14,7 @@ var (
 	TypeSmallInt  = Type{"smallint"}
 	TypeMediumInt = Type{"mediumint"}
 	TypeInt       = Type{"int"}
+	TypeInteger   = Type{"integer"}
 	TypeBigInt    = Type{"bigint"}
 	TypeChar      = Type{"char"}
 	TypeVarchar   = Type{"varchar"}

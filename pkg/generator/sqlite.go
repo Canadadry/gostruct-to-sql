@@ -6,6 +6,10 @@ import (
 	"strings"
 )
 
+var (
+	ErrAutoIncrement = fmt.Errorf("Cannot have AutoIncrement without PrimaryKey and Integer")
+)
+
 func Sqlite(t ast.Table) (string, error) {
 	header := "CREATE TABLE " + t.Name + " (\n"
 	footer := ");"
@@ -18,12 +22,13 @@ func Sqlite(t ast.Table) (string, error) {
 		}
 		field := "\t" + f.Name + " " + typeName
 		if f.AutoIncrement {
-			field += " AUTOINCREMENT"
+			if f.Name == t.PrimaryField && typeName == ast.TypeInteger.String() {
+				field += " PRIMARY KEY AUTOINCREMENT"
+			} else {
+				return "", ErrAutoIncrement
+			}
 		}
 		fields = append(fields, field)
-	}
-	if len(t.PrimaryField) > 0 {
-		fields = append(fields, "\tPRIMARY KEY ("+t.PrimaryField+")")
 	}
 	content := strings.Join(fields, ",\n")
 	if len(content) > 0 {

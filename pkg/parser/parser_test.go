@@ -125,6 +125,17 @@ func TestParser(t *testing.T) {
 				},
 			},
 		},
+		{
+			input: struct {
+				id int `type:"integer"`
+			}{},
+			expected: ast.Table{
+				Name: "anonym_1",
+				Fields: []ast.Field{
+					{Name: "id", Type: ast.TypeInteger},
+				},
+			},
+		},
 	}
 
 	for i, tt := range tests {
