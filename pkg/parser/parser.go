@@ -8,14 +8,17 @@ import (
 )
 
 var (
-	ErrNotAStruct        = fmt.Errorf("Can only parse struct type")
-	ErrUnknownType       = fmt.Errorf("Cannot convert unknown go type")
-	ErrTypeRequiredASize = fmt.Errorf("This type require a size annotation")
+	ErrNotAStruct          = fmt.Errorf("Can only parse struct type")
+	ErrUnknownType         = fmt.Errorf("Cannot convert unknown go type")
+	ErrTypeRequiredASize   = fmt.Errorf("This type require a size annotation")
+	ErrSeveralPrimaryField = fmt.Errorf("Several primary field ")
 )
 
 const (
-	tagType = "type"
-	tagSize = "size"
+	tagType          = "type"
+	tagSize          = "size"
+	tagPrimary       = "primary"
+	tagAutoIncrement = "autoincrement"
 )
 
 func Parse(v interface{}) (ast.Table, error) {
@@ -40,10 +43,17 @@ func Parse(v interface{}) (ast.Table, error) {
 		}
 
 		t.Fields = append(t.Fields, ast.Field{
-			Name: f.Name,
-			Type: sqlType,
-			Size: sqlSize,
+			Name:          f.Name,
+			Type:          sqlType,
+			Size:          sqlSize,
+			AutoIncrement: isAutoIncrement(tags),
 		})
+		if isPrimaryKey(tags) {
+			if len(t.PrimaryField) > 0 {
+				return t, ErrSeveralPrimaryField
+			}
+			t.PrimaryField = f.Name
+		}
 	}
 
 	return t, nil
@@ -95,4 +105,14 @@ func readSizeOf(tags reflect.StructTag) (uint, error) {
 		return 0, ErrTypeRequiredASize
 	}
 	return uint(size), nil
+}
+
+func isPrimaryKey(tags reflect.StructTag) bool {
+	_, ok := tags.Lookup(tagPrimary)
+	return ok
+}
+
+func isAutoIncrement(tags reflect.StructTag) bool {
+	_, ok := tags.Lookup(tagAutoIncrement)
+	return ok
 }

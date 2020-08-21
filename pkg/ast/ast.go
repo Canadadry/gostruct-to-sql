@@ -23,15 +23,15 @@ var (
 )
 
 type Table struct {
-	Name   string
-	Fields []Field
+	Name         string
+	Fields       []Field
+	PrimaryField string
 }
 
 type Field struct {
 	Name          string
 	Type          Type
 	Size          uint
-	Primary       bool
 	AutoIncrement bool
 	Nullable      bool
 }

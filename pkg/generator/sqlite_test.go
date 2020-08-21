@@ -73,6 +73,38 @@ func TestGeneratorSqlite(t *testing.T) {
 	name text
 );`,
 		},
+		{
+			input: ast.Table{
+				Name: "test6",
+				Fields: []ast.Field{
+					{
+						Name:          "name",
+						Type:          ast.TypeInt,
+						AutoIncrement: true,
+					},
+				},
+			},
+			expected: `CREATE TABLE test6 (
+	name int AUTOINCREMENT
+);`,
+		},
+		{
+			input: ast.Table{
+				Name:         "test7",
+				PrimaryField: "name",
+				Fields: []ast.Field{
+					{
+						Name:          "name",
+						Type:          ast.TypeInt,
+						AutoIncrement: true,
+					},
+				},
+			},
+			expected: `CREATE TABLE test7 (
+	name int AUTOINCREMENT,
+	PRIMARY KEY (name)
+);`,
+		},
 	}
 
 	for i, tt := range tests {

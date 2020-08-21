@@ -21,7 +21,13 @@ func MySql(t ast.Table) (string, error) {
 			return "", fmt.Errorf("Cannot translate field %#v : %w", f, err)
 		}
 		field := "\t" + f.Name + " " + typeName
+		if f.AutoIncrement {
+			field += " AUTO_INCREMENT"
+		}
 		fields = append(fields, field)
+	}
+	if len(t.PrimaryField) > 0 {
+		fields = append(fields, "\tPRIMARY KEY ("+t.PrimaryField+")")
 	}
 	content := strings.Join(fields, ",\n")
 	if len(content) > 0 {

@@ -74,6 +74,38 @@ func TestGeneratorMysql(t *testing.T) {
 	name text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
 		},
+		{
+			input: ast.Table{
+				Name: "test6",
+				Fields: []ast.Field{
+					{
+						Name:          "name",
+						Type:          ast.TypeInt,
+						AutoIncrement: true,
+					},
+				},
+			},
+			expected: `CREATE TABLE test6 (
+	name int AUTO_INCREMENT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
+		},
+		{
+			input: ast.Table{
+				Name:         "test7",
+				PrimaryField: "name",
+				Fields: []ast.Field{
+					{
+						Name:          "name",
+						Type:          ast.TypeInt,
+						AutoIncrement: true,
+					},
+				},
+			},
+			expected: `CREATE TABLE test7 (
+	name int AUTO_INCREMENT,
+	PRIMARY KEY (name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
+		},
 	}
 
 	for i, tt := range tests {

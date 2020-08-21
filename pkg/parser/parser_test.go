@@ -90,6 +90,41 @@ func TestParser(t *testing.T) {
 				},
 			},
 		},
+		{
+			input: struct {
+				id int `primary:"true"`
+			}{},
+			expected: ast.Table{
+				Name:         "anonym_1",
+				PrimaryField: "id",
+				Fields: []ast.Field{
+					{Name: "id", Type: ast.TypeInt},
+				},
+			},
+		},
+		{
+			input: struct {
+				id int `primary:"true" autoincrement:"true"`
+			}{},
+			expected: ast.Table{
+				Name:         "anonym_1",
+				PrimaryField: "id",
+				Fields: []ast.Field{
+					{Name: "id", Type: ast.TypeInt, AutoIncrement: true},
+				},
+			},
+		},
+		{
+			input: struct {
+				id int `autoincrement:"true"`
+			}{},
+			expected: ast.Table{
+				Name: "anonym_1",
+				Fields: []ast.Field{
+					{Name: "id", Type: ast.TypeInt, AutoIncrement: true},
+				},
+			},
+		},
 	}
 
 	for i, tt := range tests {
@@ -131,6 +166,13 @@ func TestParserError(t *testing.T) {
 				name string `type:"char"`
 			}{},
 			expected: ErrTypeRequiredASize,
+		},
+		{
+			input: struct {
+				id  int `primary:"true" autoincrement:"true"`
+				id2 int `primary:"true" autoincrement:"true"`
+			}{},
+			expected: ErrSeveralPrimaryField,
 		},
 	}
 
